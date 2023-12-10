@@ -143,13 +143,14 @@ def compute_vertical_crossings(way_out: np.ndarray) -> int:
 
 
 def inside_area(area_mask: np.ndarray, loop_mask: np.ndarray, maze_map: np.ndarray) -> int:
+    if area_mask[:, 0].any() or area_mask[:, -1].any() or area_mask[0, :].any() or area_mask[-1, :].any():
+        # we are border pieces are outside
+        return 0
+    
     area_representative = np.where(area_mask)
     repre_y = area_representative[0][0]
     repre_x = area_representative[1][0]
 
-    if area_mask[:, 0].any() or area_mask[:, -1].any() or area_mask[0, :].any() or area_mask[-1, :].any():
-        # we are border pieces are outside
-        return 0
     n_crossings_top = compute_vertical_crossings(maze_map[:repre_y, repre_x][loop_mask[:repre_y, repre_x]])
     if n_crossings_top % 2:
         return area_mask.sum()
