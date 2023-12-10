@@ -177,8 +177,8 @@ if __name__ == "__main__":
 
     input_as_arr = np.array([list(l) for l in input_as_lines])
     loop_mask = find_loop_mask(input_as_arr)
-    ans = round(loop_mask.sum() / 2)
-    print(f"part1: {ans}")
+    farthest_point = round(loop_mask.sum() / 2)
+    print(f"part1: {farthest_point}")
 
     if fix_input_manually:
         # does not change the result
